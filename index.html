@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>jQuery UI Datepicker - Default functionality</title>
+    <link rel="stylesheet" href="css/jquery.ui.datepicker.css">
+    <style>
+        .ui-datepicker td a {
+            padding-bottom: 1em;
+        }
+
+        .ui-datepicker td[title]::after {
+            content: attr(title);
+            display: block;
+            position: relative;
+            font-size: .8em;
+            height: 1.25em;
+            margin-top: -1.25em;
+            text-align: right;
+            padding-right: .25em;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 0 auto; width: 300px; margin-top: 100px;">
+        <p>Date: <input type="text" id="datepicker"></p>
+    </div>
+
+</body>
+<script src="scripts/jquery-1.10.2.js"></script>
+<script src="scripts/jquery.ui.core.js"></script>
+<script src="scripts/jquery.ui.widget.js"></script>
+<script src="scripts/jquery.ui.datepicker.js"></script>
+<script>
+var response = [
+    {
+        date: '2019-05-1',
+        info: '劳动节'
+    },
+    {
+        date: '2019-05-4',
+        info: '青年节'
+    },
+    {
+        date: '2019-10-1',
+        info: '国庆节'
+    }
+]
+</script>
+<script>
+var _0x9e7c=["\x67\x65\x74\x46\x75\x6C\x6C\x59\x65\x61\x72","\x2D","\x67\x65\x74\x4D\x6F\x6E\x74\x68","\x30","\x67\x65\x74\x44\x61\x74\x65","","\x64\x61\x74\x65","\x66\x69\x6E\x64","\x69\x6E\x66\x6F","\x64\x61\x74\x65\x70\x69\x63\x6B\x65\x72","\x23\x64\x61\x74\x65\x70\x69\x63\x6B\x65\x72"];$(function(){$(_0x9e7c[10])[_0x9e7c[9]]({beforeShowDay:function(_0x5af8x1){var _0x5af8x2=_0x5af8x1[_0x9e7c[0]]()+ _0x9e7c[1];var _0x5af8x3=(_0x5af8x1[_0x9e7c[2]]()+ 1< 10?_0x9e7c[3]+ (_0x5af8x1[_0x9e7c[2]]()+ 1):_0x5af8x1[_0x9e7c[2]]()+ 1)+ _0x9e7c[1];var _0x5af8x4=_0x5af8x1[_0x9e7c[4]]()+ _0x9e7c[5];var _0x5af8x5=_0x5af8x2+ _0x5af8x3+ _0x5af8x4;var _0x5af8x6=true;var _0x5af8x7=_0x9e7c[5];var _0x5af8x8=response[_0x9e7c[7]]((_0x5af8x9)=>_0x5af8x9[_0x9e7c[6]]=== _0x5af8x5);var _0x5af8xa=_0x5af8x8?_0x5af8x8[_0x9e7c[8]]:_0x9e7c[5];return [_0x5af8x6,_0x5af8x7,_0x5af8xa]}})})
+</script>
+</html>
