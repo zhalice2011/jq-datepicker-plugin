@@ -5359,8 +5359,12 @@ $.extend(Datepicker.prototype, {
                 }, 0);
             }
         }
-        if (showBusinessInfo && inst.settings) {
-            var url = this._get(inst, "url")
+        if (showBusinessInfo) {
+            var url = this._get(inst, "url");
+            var year = inst.drawYear;
+            var month = inst.drawMonth;
+            var numberOfMonths = this._get(inst, "numberOfMonths");
+            var currentUrl = url + '?year=' + year +'&month='+ month + '&numberOfMonths=' + numberOfMonths
             $.getJSON(url, function (result) {
                 inst.settings.list =  result.list
                 a()
