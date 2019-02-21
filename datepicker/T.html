@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="scripts/all.compatible.js?v=2019012001"></script>
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="format-detection" content="address=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>
+        测试
+    </title>
+    <!-- css end-->
+    <!-- js end -->
+    <script type="text/javascript" src="scripts/ui.datepicker-zh-CN.js?v=2017031901"></script>
+    <script type="text/javascript" src="scripts/jquery-ui-1.10.4.custom.js?v=2017031901"></script>
+    <link href="css/ui-lightness/jquery-ui-1.10.4.custom.css?v=2017031901" rel="stylesheet" type="text/css" />
+    <style>
+        .ui-datepicker td a {
+            padding: .2em .2em 1em .2em !important;
+        }
+
+        .ui-datepicker td[title]::after {
+            content: attr(title);
+            display: block;
+            position: relative;
+            font-size: .8em;
+            height: 1.25em;
+            margin-top: -1.25em;
+            text-align: right;
+            padding-right: .25em;
+        }
+    </style>
+</head>
+<body>
+
+        <div class="body_div">
+                       <span>试教时间:</span>
+                       <input name="TextBoxTryTeachingDate" type="text" id="TextBoxTryTeachingDate" class="inp_txt suojin iconbg icon_date" />
+        </div>
+
+
+    <script language="javascript" type="text/javascript">
+
+        initAddDate();
+
+    function initAddDate() {
+        $("#TextBoxTryTeachingDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-50:+5',
+            showButtonPanel: true,
+            numberOfMonths: 1,
+            showBusinessInfo: true, // true表示要显示附加信息
+            url: 'data/data.json'
+            // url: 'http://www.tianyoujiajiao.com/http/Info4Calendar?year=2020&month=2&numberOfMonths=2',
+        });
+    }
+
+    </script>
+</body>
+</html>
