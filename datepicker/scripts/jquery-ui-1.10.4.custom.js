@@ -4073,7 +4073,7 @@ $.widget( "ui.accordion", {
 	_createIcons: function() {
 		var icons = this.options.icons;
 		if ( icons ) {
-			$( "<span>" )
+			$( "<small>" )
 				.addClass( "ui-accordion-header-icon ui-icon " + icons.header )
 				.prependTo( this.headers );
 			this.active.children( ".ui-accordion-header-icon" )
@@ -5376,23 +5376,7 @@ $.extend(Datepicker.prototype, {
                 timeout: 1000,
                 error: function (e) {
                     inst.settings.list =  [
-                        { "date": "2019-02-20", "info": "欲断魂" },
-                        { "date": "2019-02-21", "info": "雨纷纷" },
-                          { "date": "2019-02-22", "info": "任平生" },
-                          {
-                            "date": "2019-04-05",
-                            "info": "清明"
-                          },{
-                            "date": "2019-05-01",
-                            "info": "劳动节"
-                          },
-                          { "date": "2020-02-02", "info": "" },
-                          { "date": "2020-02-03", "info": "" },
-                          { "date": "2020-02-04", "info": "" },
-                          { "date": "2020-02-05", "info": "" },
-                          { "date": "2020-02-06", "info": "" },
-                          { "date": "2020-02-07", "info": "" },
-                          { "date": "2020-02-08", "info": "元宵" },
+                        { "date": "2019-02-22", "info": "任平生" },
                     ]
                     a()
                 }
@@ -5574,11 +5558,11 @@ $.extend(Datepicker.prototype, {
 		}
 
 		inst = this._getInst(target[0]);
-		inst.selectedDay = inst.currentDay = $("a", td).html();
+		inst.selectedDay = inst.currentDay = $("a", td).data('current-day');
 		inst.selectedMonth = inst.currentMonth = month;
 		inst.selectedYear = inst.currentYear = year;
 		this._selectDate(id, this._formatDate(inst,
-			inst.currentDay, inst.currentMonth, inst.currentYear));
+		inst.currentDay, inst.currentMonth, inst.currentYear));
 	},
 
 	/* Erase the input field and hide the date picker. */
@@ -6348,7 +6332,7 @@ $.extend(Datepicker.prototype, {
                             (printDate.getTime() === today.getTime() ? " ui-state-highlight" : "") +
                             (printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "") + // highlight selected day
                             (otherMonth ? " ui-priority-secondary" : "") + // distinguish dates from other months
-                            "' href='#'>" + printDate.getDate() + "</a>")) + "</td>"; // display selectable date
+                            "' href='#' data-current-day= "+ printDate.getDate() +">" + printDate.getDate() + "</a>")) + "</td>"; // display selectable date
                         printDate.setDate(printDate.getDate() + 1);
                         printDate = this._daylightSavingAdjust(printDate);
                     }
