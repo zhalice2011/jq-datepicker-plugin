@@ -6154,7 +6154,7 @@ $.extend(Datepicker.prototype, {
 	},
 
 	/* Generate the HTML for the current state of the date picker. */
-	_generateHTML: function(inst) {
+	_generateHTML2: function(inst) {
 		var maxDraw, prevText, prev, nextText, next, currentText, gotoDate,
 			controls, buttonPanel, firstDay, showWeek, dayNames, dayNamesMin,
 			monthNames, monthNamesShort, beforeShowDay, showOtherMonths,
@@ -6341,6 +6341,23 @@ $.extend(Datepicker.prototype, {
         inst._keyEvent = false;
         return html;
     },
+    /* Generate the HTML for the current state of the date picker. */
+	_generateHTML: function(inst) {
+        var html = this._generateHTML2(inst)
+        var showBusinessInfo = this._get(inst, "showBusinessInfo");
+        if (showBusinessInfo) {
+            $temp = $("<table></table>").append(html);
+            var _this = this
+            $temp.find(".ui-datepicker-calendar td a").each(function (v) {
+                var title = $(this).parent().attr('title')
+                if (title) {
+                    $(this).append("<span class='price'>"+title+"</span>");
+                }
+            });
+            html = $temp[0].innerHTML;
+        }
+        return html;
+    },
     /* dali Generate the Additional information. */
     _generateExtraInfo: function(date) {
         var infoData = this.settings.list
@@ -6354,6 +6371,20 @@ $.extend(Datepicker.prototype, {
         var current = infoData.find(v => v.date === YYMMDD)
         var title = current ? current.info : ''
         return [selectable, classname, title];
+    },
+    /* dali Generate the Additional information. */
+    _getExtraInfo: function(date) {
+        var infoData = this.settings.list
+        if (!infoData) return [true, ""]
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate() + '');
+        var YYMMDD =  Y + M + D;
+        var selectable = true;
+        var classname = "";
+        var current = infoData.find(v => v.date === YYMMDD)
+        var title = current ? current.info : ''
+        return title
     },
 
 	/* Generate the month and year header. */
