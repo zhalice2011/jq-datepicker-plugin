@@ -5370,13 +5370,22 @@ $.extend(Datepicker.prototype, {
                 dataType: "json",
                 url: currentUrl,  //这里是网址
                 success: function (data) {
-                    inst.settings.list =  result.list
+                    inst.settings.list =  data.list
                     a()
                 },
                 timeout: 1000,
                 error: function (e) {
                     inst.settings.list =  [
-                          { "date": "2019-02-22", "info": "dada" },
+                        { "date": "2019-02-20", "info": "欲断魂" },
+                        { "date": "2019-02-21", "info": "雨纷纷" },
+                          { "date": "2019-02-22", "info": "任平生" },
+                          {
+                            "date": "2019-04-05",
+                            "info": "清明"
+                          },{
+                            "date": "2019-05-01",
+                            "info": "劳动节"
+                          },
                           { "date": "2020-02-02", "info": "" },
                           { "date": "2020-02-03", "info": "" },
                           { "date": "2020-02-04", "info": "" },
