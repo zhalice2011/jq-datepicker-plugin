@@ -5376,7 +5376,7 @@ $.extend(Datepicker.prototype, {
                 timeout: 1000,
                 error: function (e) {
                     inst.settings.list =  [
-                        { "date": "2019-02-22", "info": "任平生" },
+                        { "date": "2019-02-22", "info": "任平生任平生任平生" },
                     ]
                     a()
                 }
@@ -5558,7 +5558,7 @@ $.extend(Datepicker.prototype, {
 		}
 
 		inst = this._getInst(target[0]);
-		inst.selectedDay = inst.currentDay = $("a", td).data('current-day');
+		inst.selectedDay = inst.currentDay = $("a", td).data('current-day'); //dali
 		inst.selectedMonth = inst.currentMonth = month;
 		inst.selectedYear = inst.currentYear = year;
 		this._selectDate(id, this._formatDate(inst,
@@ -6308,9 +6308,7 @@ $.extend(Datepicker.prototype, {
                     for (dow = 0; dow < 7; dow++) { // create date picker days
                         daySettings = (beforeShowDay ?
                             beforeShowDay.apply((inst.input ? inst.input[0] : null), [printDate]) : [true, ""]);
-                            // dali
-                        daySettings = (showBusinessInfo ?
-                            this._generateExtraInfo.apply(inst, [printDate]) : [true, ""]);
+                        var extra = this._getExtraInfo(inst, printDate)
                         otherMonth = (printDate.getMonth() !== drawMonth);
                         unselectable = (otherMonth && !selectOtherMonths) || !daySettings[0] ||
                             (minDate && printDate < minDate) || (maxDate && printDate > maxDate);
@@ -6332,7 +6330,7 @@ $.extend(Datepicker.prototype, {
                             (printDate.getTime() === today.getTime() ? " ui-state-highlight" : "") +
                             (printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "") + // highlight selected day
                             (otherMonth ? " ui-priority-secondary" : "") + // distinguish dates from other months
-                            "' href='#' data-current-day= "+ printDate.getDate() +">" + printDate.getDate() + "</a>")) + "</td>"; // display selectable date
+                            "' href='#' data-extra-info= '"+ extra +"' data-current-day= '"+ printDate.getDate() +"'>" + printDate.getDate() + "</a>")) + "</td>"; // display selectable date
                         printDate.setDate(printDate.getDate() + 1);
                         printDate = this._daylightSavingAdjust(printDate);
                     }
@@ -6361,39 +6359,21 @@ $.extend(Datepicker.prototype, {
             $temp = $("<table></table>").append(html);
             var _this = this
             $temp.find(".ui-datepicker-calendar td a").each(function (v) {
-                var title = $(this).parent().attr('title')
-                if (title) {
-                    $(this).append("<span class='price'>"+title+"</span>");
-                }
+                var extraInfo = $(this).data('extra-info')
+                extraInfo && $(this).append("<span class='extra'>"+extraInfo+"</span>");
             });
             html = $temp[0].innerHTML;
         }
         return html;
     },
     /* dali Generate the Additional information. */
-    _generateExtraInfo: function(date) {
-        var infoData = this.settings.list
+    _getExtraInfo: function(inst, date) {
+        var infoData = inst.settings.list
         if (!infoData) return [true, ""]
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate() + '');
         var YYMMDD =  Y + M + D;
-        var selectable = true;
-        var classname = "";
-        var current = infoData.find(v => v.date === YYMMDD)
-        var title = current ? current.info : ''
-        return [selectable, classname, title];
-    },
-    /* dali Generate the Additional information. */
-    _getExtraInfo: function(date) {
-        var infoData = this.settings.list
-        if (!infoData) return [true, ""]
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate() + '');
-        var YYMMDD =  Y + M + D;
-        var selectable = true;
-        var classname = "";
         var current = infoData.find(v => v.date === YYMMDD)
         var title = current ? current.info : ''
         return title
