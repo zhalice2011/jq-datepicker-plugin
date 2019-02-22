@@ -5365,7 +5365,7 @@ $.extend(Datepicker.prototype, {
             var month = inst.drawMonth;
             var numberOfMonths = this._get(inst, "numberOfMonths");
             var currentUrl = url + '?year=' + year +'&month='+ month + '&numberOfMonths=' + numberOfMonths
-            $.getJSON(url, function (result) {
+            $.getJSON(currentUrl, function (result) {
                 inst.settings.list =  result.list
                 a()
             })
