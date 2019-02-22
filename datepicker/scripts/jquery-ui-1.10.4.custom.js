@@ -5362,13 +5362,32 @@ $.extend(Datepicker.prototype, {
         if (showBusinessInfo) {
             var url = this._get(inst, "url");
             var year = inst.drawYear;
-            var month = inst.drawMonth;
+            var month = inst.drawMonth + 1;
             var numberOfMonths = this._get(inst, "numberOfMonths");
             var currentUrl = url + '?year=' + year +'&month='+ month + '&numberOfMonths=' + numberOfMonths
-            $.getJSON(currentUrl, function (result) {
-                inst.settings.list =  result.list
-                a()
-            })
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: currentUrl,  //这里是网址
+                success: function (data) {
+                    inst.settings.list =  result.list
+                    a()
+                },
+                timeout: 1000,
+                error: function (e) {
+                    inst.settings.list =  [
+                          { "date": "2019-02-22", "info": "dada" },
+                          { "date": "2020-02-02", "info": "" },
+                          { "date": "2020-02-03", "info": "" },
+                          { "date": "2020-02-04", "info": "" },
+                          { "date": "2020-02-05", "info": "" },
+                          { "date": "2020-02-06", "info": "" },
+                          { "date": "2020-02-07", "info": "" },
+                          { "date": "2020-02-08", "info": "元宵" },
+                    ]
+                    a()
+                }
+            });
         } else {
             a()
         }
