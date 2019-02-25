@@ -5322,7 +5322,7 @@ $.extend(Datepicker.prototype, {
 	/* Generate the date picker content. dali*/
 	_updateDatepicker: function(inst) {
         var showBusinessInfo = this._get(inst, 'showBusinessInfo')
-        const a = () => {
+        var func = () => {
             this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
             instActive = inst; // for delegate hover events
             inst.dpDiv.empty().append(this._generateHTML(inst));
@@ -5382,7 +5382,7 @@ $.extend(Datepicker.prototype, {
                 }
             });
         } else {
-            a()
+            func()
         }
 	},
 
@@ -6373,7 +6373,7 @@ $.extend(Datepicker.prototype, {
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate() + '');
 		var YYMMDD =  Y + M + D;
-		let title = ''
+		var title = ''
 		for (var i=0; i < infoData.length; i++) {
 			if(infoData[i].date === YYMMDD){
 				title = infoData[i].info;
