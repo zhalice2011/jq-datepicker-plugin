@@ -5322,43 +5322,7 @@ $.extend(Datepicker.prototype, {
 	/* Generate the date picker content. dali*/
 	_updateDatepicker: function(inst) {
         var showBusinessInfo = this._get(inst, 'showBusinessInfo')
-        var func = () => {
-            this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
-            instActive = inst; // for delegate hover events
-            inst.dpDiv.empty().append(this._generateHTML(inst));
-            this._attachHandlers(inst);
-            inst.dpDiv.find("." + this._dayOverClass + " a").mouseover();
-
-            var origyearshtml,
-                numMonths = this._getNumberOfMonths(inst),
-                cols = numMonths[1],
-                width = 17;
-
-            inst.dpDiv.removeClass("ui-datepicker-multi-2 ui-datepicker-multi-3 ui-datepicker-multi-4").width("");
-            if (cols > 1) {
-                inst.dpDiv.addClass("ui-datepicker-multi-" + cols).css("width", (width * cols) + "em");
-            }
-            inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "add" : "remove") +
-                "Class"]("ui-datepicker-multi");
-            inst.dpDiv[(this._get(inst, "isRTL") ? "add" : "remove") +
-                "Class"]("ui-datepicker-rtl");
-
-            if (inst === $.datepicker._curInst && $.datepicker._datepickerShowing && $.datepicker._shouldFocusInput( inst ) ) {
-                inst.input.focus();
-            }
-
-            // deffered render of the years select (to avoid flashes on Firefox)
-            if( inst.yearshtml ){
-                origyearshtml = inst.yearshtml;
-                setTimeout(function(){
-                    //assure that inst.yearshtml didn't change.
-                    if( origyearshtml === inst.yearshtml && inst.yearshtml ){
-                        inst.dpDiv.find("select.ui-datepicker-year:first").replaceWith(inst.yearshtml);
-                    }
-                    origyearshtml = inst.yearshtml = null;
-                }, 0);
-            }
-        }
+		var _this = this
         if (showBusinessInfo) {
             var url = this._get(inst, "url");
             var year = inst.drawYear;
@@ -5371,19 +5335,56 @@ $.extend(Datepicker.prototype, {
                 url: currentUrl,  //这里是网址
                 success: function (data) {
                     inst.settings.list =  data.list
-                    a()
+                    _this.__updateDatepickerPre(inst)
                 },
                 timeout: 1000,
                 error: function (e) {
                     inst.settings.list =  [
                         { "date": "2019-02-22", "info": "" },
                     ]
-                    a()
+					_this.__updateDatepickerPre(inst)
                 }
             });
         } else {
-            func()
+            this.__updateDatepickerPre(inst)
         }
+	},
+	__updateDatepickerPre: function(inst) {
+		this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
+		instActive = inst; // for delegate hover events
+		inst.dpDiv.empty().append(this._generateHTML(inst));
+		this._attachHandlers(inst);
+		inst.dpDiv.find("." + this._dayOverClass + " a").mouseover();
+
+		var origyearshtml,
+			numMonths = this._getNumberOfMonths(inst),
+			cols = numMonths[1],
+			width = 17;
+
+		inst.dpDiv.removeClass("ui-datepicker-multi-2 ui-datepicker-multi-3 ui-datepicker-multi-4").width("");
+		if (cols > 1) {
+			inst.dpDiv.addClass("ui-datepicker-multi-" + cols).css("width", (width * cols) + "em");
+		}
+		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "add" : "remove") +
+			"Class"]("ui-datepicker-multi");
+		inst.dpDiv[(this._get(inst, "isRTL") ? "add" : "remove") +
+			"Class"]("ui-datepicker-rtl");
+
+		if (inst === $.datepicker._curInst && $.datepicker._datepickerShowing && $.datepicker._shouldFocusInput( inst ) ) {
+			inst.input.focus();
+		}
+
+		// deffered render of the years select (to avoid flashes on Firefox)
+		if( inst.yearshtml ){
+			origyearshtml = inst.yearshtml;
+			setTimeout(function(){
+				//assure that inst.yearshtml didn't change.
+				if( origyearshtml === inst.yearshtml && inst.yearshtml ){
+					inst.dpDiv.find("select.ui-datepicker-year:first").replaceWith(inst.yearshtml);
+				}
+				origyearshtml = inst.yearshtml = null;
+			}, 0);
+		}
 	},
 
 	// #6694 - don't focus the input if it's already focused
