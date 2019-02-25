@@ -5376,7 +5376,7 @@ $.extend(Datepicker.prototype, {
                 timeout: 1000,
                 error: function (e) {
                     inst.settings.list =  [
-                        { "date": "2019-02-22", "info": "任平生任平生任平生" },
+                        { "date": "2019-02-22", "info": "" },
                     ]
                     a()
                 }
@@ -5558,7 +5558,7 @@ $.extend(Datepicker.prototype, {
 		}
 
 		inst = this._getInst(target[0]);
-		inst.selectedDay = inst.currentDay = $("a", td).data('current-day'); //dali
+		inst.selectedDay = inst.currentDay = $("a", td).data('current-day');
 		inst.selectedMonth = inst.currentMonth = month;
 		inst.selectedYear = inst.currentYear = year;
 		this._selectDate(id, this._formatDate(inst,
@@ -6257,7 +6257,6 @@ $.extend(Datepicker.prototype, {
 		defaultDate = this._getDefaultDate(inst);
 		html = "";
         dow;
-        //dali
         for (row = 0; row < numMonths[0]; row++) {
             group = "";
             this.maxRows = 4;
@@ -6373,9 +6372,13 @@ $.extend(Datepicker.prototype, {
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate() + '');
-        var YYMMDD =  Y + M + D;
-        var current = infoData.find(v => v.date === YYMMDD)
-        var title = current ? current.info : ''
+		var YYMMDD =  Y + M + D;
+		let title = ''
+		for (var i=0; i < infoData.length; i++) {
+			if(infoData[i].date === YYMMDD){
+				title = infoData[i].info;
+			}
+		}
         return title
     },
 
